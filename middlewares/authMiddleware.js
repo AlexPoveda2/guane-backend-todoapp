@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (requiredRole) => (req, res, next) => {
+const authMiddleware = (requiredRoles) => (req, res, next) => {
   const token = req.header('Authorization');
 
   if (!token) {
@@ -8,11 +8,11 @@ const authMiddleware = (requiredRole) => (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret_key');
+    const decoded = jwt.verify(token, 'secret'); 
     req.user = decoded;
 
     // Check if user has the required role
-    if (requiredRole && req.user.role !== requiredRole) {
+    if (requiredRoles && !requiredRoles.includes(req.user.role)) {
       return res.status(403).json({ message: 'Access denied. You do not have the required role.' });
     }
 

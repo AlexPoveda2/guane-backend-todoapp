@@ -18,8 +18,6 @@ class UserController {
             const newUser = await User.create({
                 username: username, password: hashedPassword, role: role
             });
-
-            console.log(newUser);
             
             res.status(201).json({ message: 'User created successfully'});
         } catch (error) {
