@@ -13,13 +13,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       
       User.hasMany(models.Task, {
-        foreignKey: 'id',
+        foreignKey: 'username',
         as: 'tasks',
       })
     }
   }
+
   User.init({
-    username: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true
+    },
     password: DataTypes.STRING,
     role: {
       type: DataTypes.STRING,
@@ -31,5 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+
   return User;
 };
+

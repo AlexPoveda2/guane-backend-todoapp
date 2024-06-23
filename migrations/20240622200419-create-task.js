@@ -21,10 +21,10 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       assigned_to: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'username'
         },
         onDelete: 'CASCADE'
       },

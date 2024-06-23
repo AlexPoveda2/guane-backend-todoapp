@@ -8,7 +8,9 @@ fs.readdirSync(__dirname)
   .filter(file => file !== 'router.js')
   .forEach(file => {
     const route = require(path.join(__dirname, file));
-    router.use('/', route);
+    const routeName = path.basename(file, path.extname(file));
+    
+    router.use(`/${routeName}`, route); 
   });
 
 module.exports = router;
