@@ -7,9 +7,8 @@ class projectController {
         // Initialize any dependencies or settings here
     }
 
-    async create_project(req, res) {
+    async create_project(name, description, res) {
         try {
-            const { name, description} = req.body;
 
             const newProject = await Project.create({
                 name: name, description: description

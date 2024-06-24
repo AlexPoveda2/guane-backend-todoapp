@@ -10,7 +10,7 @@ router.post('/tasks', (req, res) => {
 
 router.get('/tasks', authMiddleware(),(req, res) => {
     taskController.list_task(req, res);
-})
+});
 
 
 module.exports = router;

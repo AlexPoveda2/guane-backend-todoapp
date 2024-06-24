@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/dockerfile
+    container_name: node_app
+    working_dir: /app
+    ports:
+      - "5422:5422"
+    networks:
+      - practice
+    depends_on:
+      - db
+    environment:
+      PORT: 5422
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      # POSTGRES_USER: myuser
+      # POSTGRES_PASSWORD: mypassword
+      # POSTGRES_DB: mydatabase  
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: db_admin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: my_db
+    ports:
+      - "5433:5432"
+    networks:
+      - practice
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  practice:
+    driver: bridge

@@ -21,7 +21,7 @@ app.use("/", router)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Sync the database and start the server
-sequelize.sync({ force: process.env.NODE_ENV === 'development' }) // Use { force: true } only in development to reset the database
+sequelize.sync({ force: false })
   .then(() => {
     console.log('Database & tables created!');
     app.listen(port, () => {
