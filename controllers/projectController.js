@@ -30,7 +30,7 @@ class projectController {
                 list: projects
             })
         } catch (error) {
-            res.status(500).json({ message: 'Error finding user', error: error.message });
+            res.status(500).json({ message: 'Error finding projects', error: error.message });
         }
         
     }

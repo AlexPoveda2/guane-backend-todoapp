@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const userController = require("../controllers/userController")
 
-router.post('/login', async (req, res) => {
+router.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
     let user_in_db = await userController.get_user_info(username);
 
@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
   });
 
 
-router.post('/create', (req, res) => {
+router.post('/auth/register', (req, res) => {
     userController.create_user(req, res);
 });
 
