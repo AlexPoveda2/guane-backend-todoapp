@@ -1,6 +1,4 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../models');
-const Project = require("../models/project")(sequelize, Sequelize.DataTypes);
+const Project = require("../models/project");
 
 class projectController {
     constructor() {

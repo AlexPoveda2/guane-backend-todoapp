@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize } = require('./models');
+const { sequelize } = require('./models/index');
 
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');

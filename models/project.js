@@ -1,28 +1,16 @@
-// models/project.js
-
 'use strict';
 
-const { Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
+const {sequelize} = require('./index');
 
-module.exports = (sequelize, DataTypes) => {
-  class Project extends Model {
-    static associate(models) {
-      Project.belongsToMany(models.User, {
-        through: models.Task,
-        foreignKey: 'project_id',
-        otherKey: 'username',
-        as: 'users',
-      });
-    }
-  }
+const Project = sequelize.define('Project', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
+});
 
-  Project.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Project',
-  });
-
-  return Project;
-};
+module.exports = Project;

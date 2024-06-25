@@ -1,58 +1,43 @@
-// models/task.js
-
 'use strict';
-const Project = require("./project");
-const User = require("./project");
 
-const { Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
+const {sequelize} = require('./index');
+const Project = require('./project');
+const User = require('./user');
 
-module.exports = (sequelize, DataTypes) => {
-  class Task extends Model {
-    static associate(models) {
-      // Define associations here
-      Task.belongsTo(models.Project, {
-        foreignKey: 'project_id',
-        as: 'project',
-      });
+const Task = sequelize.define('Task', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
+});
 
-      Task.belongsTo(models.User, {
-        foreignKey: 'assigned_to',
-        as: 'user',
-      });
-    }
-  }
-
-  Task.init({
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: DataTypes.STRING,
-    project_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Project,
-        key: 'id',
-      },
-    },
-    assigned_to: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      references: {
-        model: User,
-        key: 'username',
-      },
-    },
-  }, {
-    sequelize,
-    modelName: 'Task',
+Project.belongsToMany(User, {
+    through: Task,
+    foreignKey: 'project_id',
+    otherKey: 'assigned_to',
+    as: 'users',
   });
 
-  return Task;
-};
+Task.belongsTo(Project, {
+  foreignKey: 'project_id',
+  as: 'project',
+});
+
+Task.belongsTo(User, {
+  foreignKey: 'assigned_to',
+  as: 'assignedUser',
+});
+
+User.belongsToMany(Project, {
+    through: Task,
+    foreignKey: 'assigned_to',
+    otherKey: 'project_id',
+    as: 'projects',
+  });
+
+
+module.exports = Task;

@@ -5,7 +5,8 @@ const projectController = require("../controllers/projectController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post('/projects', (req, res) => {
-    projectController.create_project(req, res);
+    const {name, description} = req.body;
+    projectController.create_project(name, description, res);
 });
 
 router.get('/projects', authMiddleware(["admin", "manager"]),(req, res) => {

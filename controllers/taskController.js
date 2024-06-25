@@ -1,6 +1,4 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../models');
-const Task = require("../models/task")(sequelize, Sequelize.DataTypes);
+const Task = require("../models/task")
 
 class taskController {
     constructor() {

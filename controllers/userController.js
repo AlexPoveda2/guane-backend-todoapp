@@ -1,6 +1,4 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../models');
-const User = require("../models/user")(sequelize, Sequelize.DataTypes);
+const User = require("../models/user")
 const bcrypt = require('bcryptjs');
 
 class UserController {
